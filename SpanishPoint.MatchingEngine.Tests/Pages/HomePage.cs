@@ -10,6 +10,11 @@ public class HomePage : BasePage
 
     private readonly By _homePageHeadingLocator =
         By.XPath("//h2[normalize-space()='Speeding up distributions at scale']");
+    private IWebElement SolutionsElement => Driver.FindElement(By.Id("nav-toggle-solutions"));
+    private IReadOnlyCollection<IWebElement> SolutionsList =>
+    Driver.FindElements(By.CssSelector(
+        "section[role='menu'] a[class*='SubNavLink_linkEl']"));
+
 
     public HomePage(
         IBrowserManager browserManager,
@@ -18,9 +23,33 @@ public class HomePage : BasePage
         _baseUrl = testConfig.BaseUrl;
     }
 
-    public void NavigateTo()
+    public void NavigateToHomePage()
     {
         Driver.Navigate().GoToUrl(_baseUrl);
         WaitForPageToLoad(_homePageHeadingLocator);
     }
+
+    public void ExpandSolutionsMenu()
+    {
+        Wait.Until(_=>
+        {
+            var menu = SolutionsElement;
+            return menu.Displayed && menu.Enabled;
+        });
+
+        SolutionsElement.Click();
+
+        Wait.Until(_=>
+            SolutionsElement.GetDomAttribute("aria-expanded") == "true");
+    }
+
+    public List<string> GetSolutionsList()
+    {
+        return SolutionsList
+            .Where(item => item.Displayed)
+            .Select(item => item.Text.Trim())
+            .ToList();
+    }
+
+
 }
