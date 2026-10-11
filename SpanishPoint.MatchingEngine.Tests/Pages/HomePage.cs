@@ -51,5 +51,14 @@ public class HomePage : BasePage
             .ToList();
     }
 
-
+    public void SelectSolutionOption(string optionName)
+    {
+        var optionElement = Wait.Until(_ => SolutionsList
+            .FirstOrDefault(item => item.Displayed && item.Text.Trim().Equals(optionName, StringComparison.OrdinalIgnoreCase)));
+        if (optionElement == null)
+        {
+            throw new NoSuchElementException($"The solution option '{optionName}' was not found in the Solutions menu.");
+        }
+        optionElement.Click();
+    }
 }
