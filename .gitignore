@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Reqnroll generated files
+*.feature.cs
+/SpanishPoint.MatchingEngine.Tests/Features/Navigation.feature.cs
