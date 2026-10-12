@@ -1,5 +1,4 @@
-﻿
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace SpanishPoint.MatchingEngine.Tests.Browser;

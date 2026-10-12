@@ -25,7 +25,18 @@ public class NavigationSteps
     [When("the {string} menu is expanded")]
     public void WhenTheMenuIsExpanded(string menuName)
     {
-        _homePage.ExpandSolutionsMenu();
+        switch (menuName.ToLower())
+        {
+            case "solutions":
+                _homePage.ExpandSolutionsMenu();
+                break;
+
+            //Add more cases here for menus like Knowledge hub if needed in the future.
+
+            default:
+                throw new ArgumentException(
+                    $"Menu '{menuName}' is not supported.");
+        }
     }
 
     [Then("the expected list of solutions should be displayed")]
@@ -49,20 +60,25 @@ public class NavigationSteps
     [When("the {string} option is selected from the Solutions menu")]
     public void WhenTheOptionIsSelectedFromTheSolutionsMenu(string optionName)
     {
-        _homePage.SelectSolutionOption(optionName);
+                _homePage.SelectSolutionOption(optionName);
+               
     }
 
     [When("the Distribution Processing page is scrolled to the {string} section")]
     public void WhenTheDistributionProcessingPageIsScrolledToTheSection(string sectionName)
     {
-        _distributionProcessingPage.ScrollToDistributionProcessingSection(sectionName);
+                _distributionProcessingPage.ScrollToDistributionProcessingSection(sectionName);
+ 
     }
 
     [Then("the {string} section on the Distribution Processing page should display the expected content")]
     public void ThenTheSectionOnTheDistributionProcessingPageShouldDisplayTheExpectedContent(string sectionName)
     {
-        var expectedAllinonesolutionforscaleSectionContent = new[]
+        switch (sectionName.ToLower())
         {
+            case "all-in-one solution for scale":
+                var expectedSectionContent = new[]
+                {
         "All-in-one solution for scale",
         "Imagine an technology solution for collective management organisations that stays ahead of industry trends.",
         "With Matching Engine's distribution processing solution, you can:",
@@ -83,13 +99,19 @@ public class NavigationSteps
         "The Matching Engine system is based on a modern cloud-based architecture that scales dynamically to support fluctuating data volumes for Collective Management Organisations."
         };
 
-        var actualSectionContent = _distributionProcessingPage.GetSectionContent(sectionName);
+                var actualSectionContent = _distributionProcessingPage.GetSectionContent(sectionName);
 
-        foreach (var expectedText in expectedAllinonesolutionforscaleSectionContent)
-        {
-            Assert.That(actualSectionContent,
-                Does.Contain(expectedText).IgnoreCase,
-                $"Expected content not found: {expectedText}");
+                foreach (var expectedText in expectedSectionContent)
+                {
+                    Assert.That(actualSectionContent,
+                        Does.Contain(expectedText).IgnoreCase,
+                        $"Expected content not found: {expectedText}");
+                }
+                break;
+            //Add more cases if needed in the future.
+            default:
+                throw new ArgumentException(
+                    $"Section '{sectionName}' is not supported.");
         }
     }
 }

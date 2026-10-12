@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using SpanishPoint.MatchingEngine.Tests.Browser;
 using SpanishPoint.MatchingEngine.Tests.Configuration;
 
@@ -14,11 +15,13 @@ public class HomePage : BasePage
     private IReadOnlyCollection<IWebElement> SolutionsList =>
     Driver.FindElements(By.CssSelector(
         "section[role='menu'] a[class*='SubNavLink_linkEl']"));
+    private readonly By _cookiesDenyButton = By.Id("CybotCookiebotDialogBodyButtonDecline");
+    private IWebElement CookiesDenyButton => Driver.FindElement(_cookiesDenyButton);
 
 
     public HomePage(
         IBrowserManager browserManager,
-        ITestConfig testConfig): base(browserManager)
+        ITestConfig testConfig) : base(browserManager)
     {
         _baseUrl = testConfig.BaseUrl;
     }
@@ -27,11 +30,13 @@ public class HomePage : BasePage
     {
         Driver.Navigate().GoToUrl(_baseUrl);
         WaitForPageToLoad(_homePageHeadingLocator);
+
+        ManageCookieConsent();
     }
 
     public void ExpandSolutionsMenu()
     {
-        Wait.Until(_=>
+        Wait.Until(_ =>
         {
             var menu = SolutionsElement;
             return menu.Displayed && menu.Enabled;
@@ -39,7 +44,7 @@ public class HomePage : BasePage
 
         SolutionsElement.Click();
 
-        Wait.Until(_=>
+        Wait.Until(_ =>
             SolutionsElement.GetDomAttribute("aria-expanded") == "true");
     }
 
@@ -60,5 +65,23 @@ public class HomePage : BasePage
             throw new NoSuchElementException($"The solution option '{optionName}' was not found in the Solutions menu.");
         }
         optionElement.Click();
+    }
+
+    private void ManageCookieConsent()
+    {
+        var cookieWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+
+        try
+        {
+            cookieWait.Until(driver =>
+                CookiesDenyButton.Displayed &&
+                CookiesDenyButton.Enabled);
+
+            CookiesDenyButton.Click();
+        }
+        catch (WebDriverTimeoutException)
+        {
+            // Continue the test if the cookie consent dialog does not appear within the timeout.
+        }
     }
 }

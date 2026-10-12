@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using SpanishPoint.MatchingEngine.Tests.Browser;
-using SpanishPoint.MatchingEngine.Tests.Configuration;
 
 namespace SpanishPoint.MatchingEngine.Tests.Pages;
 

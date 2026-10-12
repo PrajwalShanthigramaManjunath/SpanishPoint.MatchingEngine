@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SpanishPoint.MatchingEngine.Tests.Configuration;
+﻿namespace SpanishPoint.MatchingEngine.Tests.Configuration;
 
 public interface ITestConfig
 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using NUnit.Framework.Constraints;
 using Reqnroll;
 using Reqnroll.BoDi;
 using SpanishPoint.MatchingEngine.Tests.Configuration;

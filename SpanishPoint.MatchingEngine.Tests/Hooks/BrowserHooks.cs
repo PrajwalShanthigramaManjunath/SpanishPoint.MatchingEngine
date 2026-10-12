@@ -1,5 +1,4 @@
-﻿
-using Reqnroll;
+﻿using Reqnroll;
 using Reqnroll.BoDi;
 using SpanishPoint.MatchingEngine.Tests.Browser;
 using SpanishPoint.MatchingEngine.Tests.Configuration;
