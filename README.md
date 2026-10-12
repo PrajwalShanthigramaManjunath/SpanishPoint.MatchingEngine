@@ -74,4 +74,4 @@ Tests can also be executed through Visual Studio Test Explorer.
 
 Test Results
 
-![Passing tests](docs/testResults.png)
+![Passing tests](docs/testResults.PNG)
