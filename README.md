@@ -47,8 +47,14 @@ Configuration – Test settings loaded from appsettings.json
 **Prerequisites**: .NET 10 SDK and Google Chrome.
 
 - Clone the repository.
+     ```bash
+   git clone https://github.com/PrajwalShanthigramaManjunath/SpanishPoint.MatchingEngine.git
+   ```
 
 - Open the solution in Visual Studio 2026 or navigate to the repository directory.
+     ```bash
+   cd SpanishPoint.MatchingEngine
+   ```
 
 - Restore dependencies:
 
